@@ -472,11 +472,12 @@ section.group-divider h2 { border: none; margin: 0; color: var(--vb-primary); }
     <li><a class="toc-chapter" href="#ch4">章4. 基本操作</a>
       <ul class="toc-sub">
         <li><a href="#s4-1">基本操作のステップ</a></li>
-        <li><a href="#s4-2">1. 話しかける</a></li>
-        <li><a href="#s4-3">2. ファイルを読ませる・直してもらう</a></li>
-        <li><a href="#s4-4">3. 承認する</a></li>
-        <li><a href="#s4-5">4. 詰まったら自分で戻る</a></li>
-        <li><a href="#s4-6">できたら次へ</a></li>
+        <li><a href="#s4-2">1. どこで動かす</a></li>
+        <li><a href="#s4-3">2. 話しかける</a></li>
+        <li><a href="#s4-4">3. ファイルを読ませる・直してもらう</a></li>
+        <li><a href="#s4-5">4. 承認する</a></li>
+        <li><a href="#s4-6">5. 詰まったら自分で戻る</a></li>
+        <li><a href="#s4-7">できたら次へ</a></li>
       </ul>
     </li>
   </ul>
@@ -732,28 +733,38 @@ section.group-divider h2 { border: none; margin: 0; color: var(--vb-primary); }
 
 <section class="block" id="s4-1">
   <h2>基本操作のステップ</h2>
-  <p><span class="step-num">1</span> <strong>話しかける</strong></p>
-  <p><span class="step-num">2</span> <strong>ファイルを読ませる・直してもらう</strong></p>
-  <p><span class="step-num">3</span> <strong>承認する</strong></p>
-  <p><span class="step-num">4</span> <strong>詰まったら自分で戻る</strong></p>
+  <p><span class="step-num">1</span> <strong>どこで動かす</strong></p>
+  <p><span class="step-num">2</span> <strong>話しかける</strong></p>
+  <p><span class="step-num">3</span> <strong>ファイルを読ませる・直してもらう</strong></p>
+  <p><span class="step-num">4</span> <strong>承認する</strong></p>
+  <p><span class="step-num">5</span> <strong>詰まったら自分で戻る</strong></p>
 </section>
 
 <section class="block" id="s4-2">
-  <h2>1. 話しかける</h2>
+  <h2>1. どこで動かす</h2>
+  <ul>
+    <li>Claude は <strong>起動したフォルダ</strong>を基準点にして動く（そこのファイルを読み書きする）</li>
+    <li>基準点は<strong>自動</strong>＝働きたい場所で起動するだけ（フォルダ指定は要らない）</li>
+  </ul>
+  <div class="key-box">今回は <strong>デスクトップ</strong>で起動＝デスクトップが基準点。自分のファイルが見えて分かりやすい</div>
+</section>
+
+<section class="block" id="s4-3">
+  <h2>2. 話しかける</h2>
   <p>やってほしいことを、日本語でそのまま打つ。</p>
   <div class="info-box">例「このフォルダに何があるか教えて」</div>
   <div class="key-box">命令の呪文は要らない</div>
 </section>
 
-<section class="block" id="s4-3">
-  <h2>2. ファイルを読ませる・直してもらう</h2>
+<section class="block" id="s4-4">
+  <h2>3. ファイルを読ませる・直してもらう</h2>
   <p>ファイル名（パス）を渡して読ませ、直した結果を確認する。</p>
   <div class="info-box">例「<code>議事録.txt</code> を読んで要点を3つに」→「清書版を <code>議事録_清書.txt</code> に保存して」</div>
   <div class="key-box">これが <strong>チャットとの違い</strong>＝手を動かす</div>
 </section>
 
-<section class="block" id="s4-4">
-  <h2>3. 承認する</h2>
+<section class="block" id="s4-5">
+  <h2>4. 承認する</h2>
   <ul>
     <li>変更の前に <strong>「これ変えていい？」</strong>と必ず聞かれる</li>
     <li>許可するまで <strong>何も変わらない</strong></li>
@@ -761,8 +772,8 @@ section.group-divider h2 { border: none; margin: 0; color: var(--vb-primary); }
   <div class="key-box">見て <strong>許可／やめて</strong>を選ぶ＝勝手に壊されない</div>
 </section>
 
-<section class="block" id="s4-5">
-  <h2>4. 詰まったら自分で戻る</h2>
+<section class="block" id="s4-6">
+  <h2>5. 詰まったら自分で戻る</h2>
   <p>困ったら、この3つで戻れる。</p>
   <table>
     <thead>
@@ -777,7 +788,7 @@ section.group-divider h2 { border: none; margin: 0; color: var(--vb-primary); }
   <div class="key-box">この3つで <strong>いつでも戻れる</strong></div>
 </section>
 
-<section class="block" id="s4-6">
+<section class="block" id="s4-7">
   <h2>できたら次へ</h2>
   <div class="ok-box">
     手に入ったもの
