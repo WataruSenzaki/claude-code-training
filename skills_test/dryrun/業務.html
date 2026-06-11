@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>業務</title>
+<style>
+:root{
+  --ink:#1f2937; --muted:#9ca3af;
+  --faint-bg:#eef1f4; --faint-line:#cbd5e1;
+  --heavy:#ea7a3b; --heavy-bg:#fdf0e6; --heavy-line:#ea7a3b;
+  --panel:#ffffff; --line:#e5e7eb;
+}
+*{box-sizing:border-box;}
+body{margin:0; padding:40px 24px; font-family:"Meiryo","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; color:var(--ink); background:#f7f8fa;}
+.sheet{max-width:960px; margin:0 auto;}
+h1{font-size:22px; margin:0 0 4px;}
+.sub{color:var(--muted); font-size:13px; margin-bottom:28px;}
+.section-label{font-size:13px; color:var(--muted); letter-spacing:.04em; margin:0 0 10px;}
+.flow{display:flex; align-items:stretch; flex-wrap:wrap; gap:0; margin-bottom:6px;}
+.step{flex:1 1 0; min-width:110px; background:var(--faint-bg); color:#6b7280; border:1px solid var(--faint-line); border-radius:10px; padding:12px 10px; font-size:13px; line-height:1.4; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.arrow{align-self:center; color:var(--faint-line); padding:0 6px; font-size:16px;}
+.step.heavy{background:var(--heavy-bg); color:#9a4a16; border:2px solid var(--heavy-line); font-weight:700;}
+.step .tag{display:block; font-size:11px; font-weight:700; color:var(--heavy); margin-top:4px;}
+.bridge{text-align:center; margin:14px 0 18px; color:var(--heavy); font-size:13px;}
+.bridge .down{font-size:20px; line-height:1;}
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 1px 2px rgba(0,0,0,.03);}
+.panel h2{font-size:16px; margin:0 0 12px; display:flex; align-items:center; gap:8px;}
+.panel h2 .star{color:var(--heavy);}
+table{width:100%; border-collapse:collapse; font-size:13.5px;}
+th{text-align:left; color:#6b7280; font-weight:600; font-size:12px; padding:8px 10px; border-bottom:2px solid var(--line);}
+td{padding:11px 10px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.5;}
+tr.implicit td{background:var(--heavy-bg);}
+tr.implicit td:first-child{font-weight:700;}
+.mark{display:inline-block; font-size:11px; color:var(--heavy); font-weight:700; margin-left:6px; white-space:nowrap;}
+.who{color:#6b7280; white-space:nowrap;}
+.exit{background:#f0f7f2; border:1px solid #c9e3d2; border-left:5px solid #4a9d6e; border-radius:10px; padding:16px 20px;}
+.exit h2{font-size:15px; margin:0 0 8px; color:#2f7a52;}
+.exit ul{margin:0; padding-left:18px;}
+.exit li{margin:6px 0; line-height:1.55; font-size:13.5px;}
+.exit b{color:#1f6e46;}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <h1>業務: 製造に関する書類作成（在庫・ロット確認）</h1>
+  <div class="sub">流れは薄く・判断と手間が主役</div>
+
+  <div class="section-label">流れ（足場）</div>
+  <div class="flow">
+    <div class="step">製造依頼を確認</div>
+    <div class="arrow">&rarr;</div>
+    <div class="step heavy">在庫・ロット確認と記載<span class="tag">重い手順</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="step">事務に報告・発注依頼</div>
+    <div class="arrow">&rarr;</div>
+    <div class="step heavy">前日に再確認（出納照合）<span class="tag">重い手順</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="step">製造</div>
+    <div class="arrow">&rarr;</div>
+    <div class="step">実在庫を記載・書類提出</div>
+  </div>
+
+  <div class="bridge">
+    <div class="down">&#9660;</div>
+    この2つの手順が重いのは、判断が「記憶の中」にあること＋出納の反映タイミング問題が絡んでいるから
+  </div>
+
+  <div class="panel">
+    <h2><span class="star">&#9733;</span>判断対応表 <span style="font-size:12px;color:#9ca3af;font-weight:400;">（この仕事の主役）</span></h2>
+    <table>
+      <thead><tr><th>こうしたい・こういう時</th><th>だからこうする</th><th>今この判断を持つ人</th></tr></thead>
+      <tbody>
+        <tr class="implicit">
+          <td>使用原料の正確な在庫数・ロットを把握したい<span class="mark">一番暗黙</span></td>
+          <td>出納の数字に、未反映の製造後残数（製造指図から）・入荷分（入荷書類から）を記憶で特定して足し、ロット別に算出する</td>
+          <td class="who">自分（未反映が何かは記憶ベース）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exit">
+    <h2>&#128161; 楽にする入口（ここから直す）</h2>
+    <ul>
+      <li><b>判断起点</b>：未反映が何かを記憶で特定しなければならないこと &rarr; 表・リスト化で誰でも判断できる</li>
+      <li><b>プロセス起点</b>：出納への反映タイミングが変われば（即時反映になれば）、在庫の正本が出納に一本化され、「未反映を記憶で特定・照合・補正」の手順ごと不要になる。現状は人が後でまとめて反映しているため情報が点在し、何が正しいかを検証・判断する工程が生まれている</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
