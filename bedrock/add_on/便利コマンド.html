@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>便利なコマンド</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+<style>
+:root {
+  --vb-primary: #443088;
+  --vb-primary-light: #8D41D9;
+  --vb-accent: #f2de30;
+  --vb-bg-soft: #ebedf5;
+  --vb-bg-tint: #ede9f7;
+  --sidebar-width: 290px;
+  --text-color: #222;
+  --muted: #666;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  color: var(--text-color);
+  line-height: 1.7;
+  background: #fafafa;
+}
+
+/* ===== サイドバー ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  padding: 1.5em 0 2em;
+  z-index: 100;
+}
+.sidebar-header {
+  padding: 0 1.4em 1em;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0.5em;
+}
+.sidebar-title {
+  font-size: 0.95em;
+  font-weight: bold;
+  color: var(--vb-primary);
+  margin: 0 0 0.2em;
+}
+.sidebar-sub {
+  font-size: 0.72em;
+  color: var(--muted);
+  margin: 0;
+}
+.toc { list-style: none; padding: 0; margin: 0; font-size: 0.85em; }
+.toc > li { margin: 0; }
+.toc-chapter {
+  display: block;
+  padding: 0.55em 1.4em 0.35em;
+  font-weight: bold;
+  color: var(--vb-primary);
+  text-decoration: none;
+  font-size: 0.92em;
+  border-left: 3px solid transparent;
+  margin-top: 0.4em;
+}
+.toc-chapter:hover {
+  background: var(--vb-bg-tint);
+  border-left-color: var(--vb-primary-light);
+}
+.toc-sub { list-style: none; padding: 0; margin: 0 0 0.3em; }
+.toc-sub a {
+  display: block;
+  padding: 0.3em 1.4em 0.3em 2.2em;
+  font-size: 0.84em;
+  color: #444;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  line-height: 1.35;
+}
+.toc-sub a:hover {
+  background: var(--vb-bg-soft);
+  border-left-color: var(--vb-primary-light);
+  color: var(--vb-primary);
+}
+.toc-sub a.active {
+  background: var(--vb-bg-tint);
+  border-left-color: var(--vb-primary);
+  color: var(--vb-primary);
+  font-weight: bold;
+}
+
+/* ===== モバイル: ハンバーガー ===== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 0.8em;
+  left: 0.8em;
+  z-index: 200;
+  background: var(--vb-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 0.8em;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* ===== メインコンテンツ ===== */
+.content {
+  margin-left: var(--sidebar-width);
+  padding: 2.5em 4em 4em;
+  max-width: 980px;
+}
+.content h1, .content h2, .content h3, .content h4 { text-transform: none; letter-spacing: normal; }
+.content h1 { font-size: 2em; color: var(--vb-primary); margin-top: 0; }
+.content h2 {
+  font-size: 1.45em;
+  color: var(--vb-primary);
+  border-bottom: 3px solid var(--vb-primary);
+  padding-bottom: 0.2em;
+  margin-top: 0;
+  margin-bottom: 0.6em;
+  scroll-margin-top: 0.8em;
+}
+.content h3 {
+  font-size: 1.08em;
+  color: #333;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+}
+.content p { margin: 0.7em 0; }
+.content ul, .content ol { padding-left: 1.6em; margin: 0.6em 0; }
+.content li { margin-bottom: 0.25em; }
+.content a { color: var(--vb-primary); }
+.content code {
+  font-family: "Consolas", "Menlo", monospace;
+  background: #f3f1f7;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.92em;
+}
+.content pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 0.9em 1.1em;
+  overflow-x: auto;
+  font-size: 0.82em;
+  line-height: 1.5;
+  margin: 0.8em 0;
+}
+.content pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ===== セクション ===== */
+section.block {
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 2em 2.4em;
+  margin-bottom: 2em;
+  scroll-margin-top: 1em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+section.title-slide {
+  text-align: center;
+  background: linear-gradient(135deg, var(--vb-primary) 0%, var(--vb-primary-light) 100%);
+  color: white;
+  padding: 3em 2.4em;
+}
+section.title-slide h1 {
+  color: white;
+  font-size: 2.6em;
+  margin-bottom: 0.3em;
+}
+section.title-slide h3 { color: rgba(255,255,255,0.9); }
+section.title-slide p { color: rgba(255,255,255,0.85); }
+section.ch-cover {
+  background: linear-gradient(135deg, var(--vb-primary) 0%, var(--vb-primary-light) 100%);
+  color: white;
+  text-align: center;
+  padding: 2.4em;
+}
+section.ch-cover h1, section.ch-cover h2 {
+  color: white;
+  border: none;
+}
+section.ch-cover h1 { font-size: 2em; margin-bottom: 0.2em; }
+section.ch-cover h2 { font-size: 1.4em; }
+section.ch-cover p { color: rgba(255,255,255,0.88); }
+
+/* ===== テーブル ===== */
+.content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.8em 0;
+  font-size: 0.92em;
+}
+.content table th {
+  background: var(--vb-primary);
+  color: white;
+  padding: 0.45em 0.7em;
+  text-align: left;
+  border: 1px solid var(--vb-primary);
+}
+.content table td {
+  padding: 0.45em 0.7em;
+  border: 1px solid #e0e0e0;
+  vertical-align: top;
+}
+.content table tr:nth-child(even) td { background: #fafafa; }
+
+/* ===== カラー BOX ===== */
+.key-box, .warn-box, .info-box, .ok-box {
+  padding: 0.8em 1.1em;
+  border-radius: 4px;
+  margin: 0.9em 0;
+}
+.key-box { background: #fff8d6; border-left: 4px solid var(--vb-accent); }
+.warn-box { background: #fde4e4; border-left: 4px solid #c0392b; }
+.info-box { background: var(--vb-bg-tint); border-left: 4px solid var(--vb-primary); }
+.ok-box { background: #e4f4dc; border-left: 4px solid #27ae60; }
+
+/* ===== その他装飾 ===== */
+.step-num {
+  display: inline-block;
+  background: var(--vb-primary);
+  color: white;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+.checklist { list-style: none; padding-left: 0 !important; }
+.checklist li {
+  position: relative;
+  padding-left: 1.9em;
+  margin-bottom: 0.45em;
+}
+.checklist li:before {
+  content: "☐";
+  position: absolute;
+  left: 0.3em;
+  top: 0;
+  color: var(--vb-primary);
+  font-size: 1.15em;
+}
+.compare {
+  display: flex;
+  gap: 1em;
+  margin: 0.8em 0;
+}
+.compare > div {
+  flex: 1;
+  padding: 0.9em 1.1em;
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+.compare .before { background: #fce4e4; border-left: 4px solid #c0392b; }
+.compare .after { background: #e4f4dc; border-left: 4px solid #27ae60; }
+.compare h4 { margin: 0 0 0.4em; color: #333; }
+.compare .cmd { font-size: 1.15em; font-weight: bold; color: var(--vb-primary); display: block; margin-bottom: 0.3em; }
+.meta { color: var(--muted); font-size: 0.85em; }
+.back-to-top {
+  position: fixed;
+  bottom: 1.5em;
+  right: 1.5em;
+  background: var(--vb-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 50;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.back-to-top.visible { opacity: 0.85; }
+.back-to-top:hover { opacity: 1; }
+
+.present-btn {
+  position: fixed;
+  bottom: 1.5em;
+  right: 5em;
+  background: var(--vb-primary-light);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 0.6em 1.1em;
+  font-size: 0.85em;
+  cursor: pointer;
+  z-index: 50;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}
+.present-btn:hover { opacity: 1; }
+
+/* ===== プレゼンモード ===== */
+body.presentation-mode {
+  background: #1a1428;
+  overflow: hidden;
+}
+body.presentation-mode .sidebar,
+body.presentation-mode .menu-toggle,
+body.presentation-mode .back-to-top,
+body.presentation-mode .present-btn { display: none !important; }
+body.presentation-mode .content {
+  margin-left: 0;
+  max-width: none;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+body.presentation-mode .content > section { display: none !important; }
+body.presentation-mode .content > section.active-slide {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 4em 6em;
+  overflow-y: auto;
+  box-shadow: none;
+  font-size: 1.35em;
+  line-height: 1.55;
+}
+body.presentation-mode .content > section.title-slide.active-slide,
+body.presentation-mode .content > section.ch-cover.active-slide {
+  padding: 3em 6em;
+}
+body.presentation-mode .content h2 { font-size: 1.7em; margin-bottom: 0.5em; }
+body.presentation-mode .content h3 { font-size: 1.2em; }
+body.presentation-mode .content h1 { font-size: 2.6em; }
+body.presentation-mode .content pre { font-size: 0.85em; }
+body.presentation-mode .content table { font-size: 1em; }
+
+.present-toolbar {
+  position: fixed;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 0.8em;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  padding: 0.5em 1.2em;
+  border-radius: 30px;
+  z-index: 1000;
+  font-size: 0.85em;
+  backdrop-filter: blur(6px);
+}
+body.presentation-mode .present-toolbar { display: flex; }
+.present-toolbar button {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+.present-toolbar button:hover { background: rgba(255,255,255,0.15); }
+.present-toolbar .counter { min-width: 4em; text-align: center; font-variant-numeric: tabular-nums; }
+.present-toolbar .exit-btn {
+  border-radius: 16px;
+  width: auto;
+  padding: 0 0.8em;
+  font-size: 0.85em;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .content {
+    margin-left: 0;
+    padding: 3.5em 1.5em 4em;
+  }
+  .menu-toggle { display: block; }
+  section.block { padding: 1.5em 1.2em; }
+  .compare { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰ 目次</button>
+
+<!-- ============= サイドバー ============= -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <p class="sidebar-title">便利なコマンド</p>
+    <p class="sidebar-sub">困った時・楽したい時に効く6つ</p>
+  </div>
+  <ul class="toc">
+    <li><a class="toc-chapter" href="#top">表紙</a></li>
+    <li><a class="toc-chapter" href="#s-1">便利なコマンド</a>
+      <ul class="toc-sub">
+        <li><a href="#s-1">話題を変える</a></li>
+        <li><a href="#s-2">会話が重い</a></li>
+        <li><a href="#s-3">続きをやる</a></li>
+        <li><a href="#s-4">お金を見る</a></li>
+        <li><a href="#s-5">勝手に変えさせない</a></li>
+        <li><a href="#s-6">やり直す</a></li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+
+<!-- ============= メインコンテンツ ============= -->
+<main class="content">
+
+<section class="title-slide" id="top">
+  <h1>知っておくと楽なコマンド</h1>
+  <h3>こんな時に、これ</h3>
+  <p class="meta">困った時・楽したい時に効く6つ</p>
+</section>
+
+<section class="block" id="s-1">
+  <h2>別の話題に移りたい</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      前の作業の話が残っていて、新しい相談と混ざる
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>/clear</code></span>
+      文脈を空にして新しい会話を始める。前の会話は <code>/resume</code> に残る
+    </div>
+  </div>
+</section>
+
+<section class="block" id="s-2">
+  <h2>会話が長くなって重い</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      やり取りが増えて重い。でも今の作業は続けたい
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>/compact</code></span>
+      ここまでを要約して軽くする。同じ会話のまま続けられる
+    </div>
+  </div>
+</section>
+
+<section class="block" id="s-3">
+  <h2>日をまたいで続きをやりたい</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      昨日の作業を、また一から説明し直す？
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>/resume</code></span>
+      前の会話を一覧から選んで再開（別名 <code>/continue</code>）
+    </div>
+  </div>
+</section>
+
+<section class="block" id="s-4">
+  <h2>お金・使った量が気になる</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      どれくらい使った？ 上限は大丈夫？
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>/usage</code></span>
+      コスト・プランの上限・使用状況を表示（別名 <code>/cost</code> <code>/stats</code>）
+    </div>
+  </div>
+</section>
+
+<section class="block" id="s-5">
+  <h2>勝手にいじられたくない</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      いきなりファイルを変えられると怖い。先に中身を見たい
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>Shift</code>＋<code>Tab</code>（または <code>/plan</code>）</span>
+      計画を見せ、承認するまでファイルを変えない
+    </div>
+  </div>
+</section>
+
+<section class="block" id="s-6">
+  <h2>失敗した、やり直したい</h2>
+  <div class="compare">
+    <div class="before">
+      <h4>こういう時</h4>
+      変な方向に進んだ。さっきの状態に戻したい
+    </div>
+    <div class="after">
+      <h4>これ</h4>
+      <span class="cmd"><code>Esc</code> を2回（<code>/rewind</code>）</span>
+      会話も、AI がいじったファイルも、前の地点に戻せる
+    </div>
+  </div>
+  <div class="info-box">
+    「会話だけ」「ファイルだけ」「両方」を選んで戻せる。変更前に自動保存され、30日間さかのぼれる
+  </div>
+</section>
+
+</main>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="present-btn" id="presentBtn">▶ プレゼンモード</button>
+
+<div class="present-toolbar" id="presentToolbar">
+  <button id="prevSlide" title="前へ (←)">‹</button>
+  <span class="counter" id="slideCounter">1 / 1</span>
+  <button id="nextSlide" title="次へ (→)">›</button>
+  <button class="exit-btn" id="exitPresent" title="終了 (Esc)">終了</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+hljs.highlightAll();
+
+// スクロール位置に応じて目次のハイライト
+const sections = document.querySelectorAll('section[id]');
+const tocLinks = document.querySelectorAll('.toc-sub a, .toc-chapter');
+const backToTop = document.getElementById('backToTop');
+
+function setActiveToc(id) {
+  tocLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+  });
+}
+
+function updateActive() {
+  let current = '';
+  const scrollY = window.scrollY + 120;
+  sections.forEach(sec => {
+    if (sec.offsetTop <= scrollY) current = sec.id;
+  });
+  setActiveToc(current);
+  backToTop.classList.toggle('visible', window.scrollY > 400);
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+updateActive();
+
+// モバイル: リンクをタップしたらサイドバーを閉じる
+document.querySelectorAll('.sidebar a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      document.querySelector('.sidebar').classList.remove('open');
+    }
+  });
+});
+
+// ===== プレゼンモード =====
+const slides = Array.from(document.querySelectorAll('main.content > section'));
+const counter = document.getElementById('slideCounter');
+let currentSlide = 0;
+
+function getNearestSlideIndex() {
+  const scrollY = window.scrollY + 150;
+  let idx = 0;
+  slides.forEach((sec, i) => {
+    if (sec.offsetTop <= scrollY) idx = i;
+  });
+  return idx;
+}
+
+function showSlide(i) {
+  currentSlide = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, idx) => s.classList.toggle('active-slide', idx === currentSlide));
+  counter.textContent = (currentSlide + 1) + ' / ' + slides.length;
+  const active = slides[currentSlide];
+  if (active) {
+    active.scrollTop = 0;
+    if (active.id) setActiveToc(active.id);
+  }
+}
+
+function enterPresent() {
+  const startIdx = getNearestSlideIndex();
+  document.body.classList.add('presentation-mode');
+  showSlide(startIdx);
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+
+function cleanupPresent() {
+  document.body.classList.remove('presentation-mode');
+  slides.forEach(s => s.classList.remove('active-slide'));
+  const target = slides[currentSlide];
+  if (target) {
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      if (target.id) setActiveToc(target.id);
+    });
+  }
+}
+
+function exitPresent() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  } else {
+    cleanupPresent();
+  }
+}
+
+document.getElementById('presentBtn').addEventListener('click', enterPresent);
+document.getElementById('exitPresent').addEventListener('click', exitPresent);
+document.getElementById('prevSlide').addEventListener('click', () => showSlide(currentSlide - 1));
+document.getElementById('nextSlide').addEventListener('click', () => showSlide(currentSlide + 1));
+
+document.addEventListener('keydown', (e) => {
+  if (!document.body.classList.contains('presentation-mode')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    showSlide(currentSlide + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    showSlide(currentSlide - 1);
+  } else if (e.key === 'Escape') {
+    exitPresent();
+  } else if (e.key === 'Home') {
+    showSlide(0);
+  } else if (e.key === 'End') {
+    showSlide(slides.length - 1);
+  }
+});
+
+// フルスクリーン解除時にプレゼンモードも抜ける
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && document.body.classList.contains('presentation-mode')) {
+    cleanupPresent();
+  }
+});
+</script>
+</body>
+</html>
